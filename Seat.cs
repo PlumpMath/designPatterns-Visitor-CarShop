@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace CarShop
@@ -13,9 +14,9 @@ namespace CarShop
             this.capacity = capacity;
         }
 
-        public void Accept(ICarPartVisitor visitor)
+        public void Accept(Func<ICarPartVisitor> visitorFactory)
         {
-            visitor.VisitSeat(this.name, this.capacity);
+            visitorFactory().VisitSeat(this.name, this.capacity);
         }
 
         public static IEnumerable<Seat> FourSeatConfiguration

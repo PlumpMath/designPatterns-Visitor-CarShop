@@ -6,9 +6,10 @@ namespace CarShop
     {
         private string make;
         private string model;
-        private float power;
-        private float cylinderVolume;
-        private float temperatureC;
+
+        private EngineStructure engineStructure;
+        private EngineStatus engineStatus;
+
         private int seatsCount;
 
         public void VisitCar(string make, string model)
@@ -17,11 +18,10 @@ namespace CarShop
             this.model = model;
         }
 
-        public void VisitEngine(float power, float cylinderVolume, float temperatureC)
+        public void VisitEngine(EngineStructure structure, EngineStatus status)
         {
-            this.power = power;
-            this.cylinderVolume = cylinderVolume;
-            this.temperatureC = temperatureC;
+            this.engineStructure = structure;
+            this.engineStatus = status;
         }
 
         public void VisitSeat(string name, int capacity)
@@ -31,7 +31,7 @@ namespace CarShop
 
         public CarRegistration Register()
         {
-            return new CarRegistration(this.make.ToUpper(), this.model, this.cylinderVolume, this.seatsCount);
+            return new CarRegistration(this.make.ToUpper(), this.model, this.engineStructure.CylinderVolume, this.seatsCount);
         }
     }
 }
