@@ -21,17 +21,7 @@ namespace CarShop
 
         public CarRegistration Register()
         {
-            CarRegistrationVisitor visitor = new CarRegistrationVisitor();
-            visitor.VisitCar(this.make, this.model);
-
-            this.engine.Accept(() => visitor);
-
-            foreach (Seat seat in this.seats)
-            {
-                seat.Accept(() => visitor);
-            }
-
-            return visitor.Register();
+            return new CarRegistrationBuilder(this).ProduceResult();
         }
 
         public void Accept(Func<ICarVisitor> visitorFactory)

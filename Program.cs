@@ -9,24 +9,36 @@ namespace CarShop
     {
         public static void Main(string[] args)
         {
-            //IEnumerable<Car> cars = new CarRepository().GetAll();
+            IEnumerable<Car> cars = new CarRepository().GetAll();
 
-            //CarsView view = new CarsView(cars);
-            //view.Render();
-
-            //Console.WriteLine(new string('-', 20));
-
-            //Car car = new Car("Renault", "Megane", new Engine(66, 1598), Seat.FourSeatConfiguration);
-
-            //CarRegistration registration = car.Register();
-
-            //Console.WriteLine(registration);
+            CarsView view = new CarsView(cars);
+            view.Render();
 
 
 
-            Car car = new CarRepository().GetAll().Last();
+            Console.WriteLine(new string('-', 20));
 
-            car.Accept(() => new SaveCarVisitor());
+
+
+            foreach (Car car in cars)
+            {
+                CarRegistration registration = car.Register();
+                // CarRegistration registration = car.Accept(() => new CarRegistrationBuilder(car));
+                Console.WriteLine(registration);
+            }
+
+
+
+            Console.WriteLine(new string('-', 20));
+
+
+
+            Car car2 = new CarRepository().GetAll().Last();
+
+            car2.Accept(() => new SaveCarVisitor());
+
+
+
 
             Console.Write("Press ENTER to exit... ");
             Console.ReadLine();
